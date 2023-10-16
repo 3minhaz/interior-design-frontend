@@ -9,24 +9,26 @@ import Form from "@/components/Forms/Form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import CustomInput from "@/components/Forms/CustomInput";
 import { loginSchema } from "@/schemas/login";
+import { useLoginUserMutation } from "@/redux/api/authApi";
+import { storeUserInfo } from "@/services/auth.service";
 
 type FormValues = {
   email: string;
   password: string;
 };
 const LoginPage = () => {
-  //   const [userLogin] = useUserLoginMutation();
+  const [loginUser] = useLoginUserMutation();
   const router = useRouter();
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
-      //   const res = await userLogin({ ...data }).unwrap();
+      const res = await loginUser({ ...data }).unwrap();
       // console.log(res);
-      //   if (res?.accessToken) {
-      console.log(data, "checking data");
-      //   router.push("/profile");
-      message.success("User logged in successfully!");
-      //   }
-      //   storeUserInfo({ accessToken: res?.accessToken });
+      if (res?.accessToken) {
+        console.log(data, "checking data");
+        //   router.push("/profile");
+        message.success("User logged in successfully!");
+      }
+      storeUserInfo({ accessToken: res?.accessToken });
       // console.log(res);
     } catch (err: any) {
       console.error(err.message);

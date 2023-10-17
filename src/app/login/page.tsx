@@ -4,13 +4,14 @@ import { Col, Row, message, Button } from "antd";
 import Image from "next/image";
 import login from "../../assets/login.png";
 import { SubmitHandler } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Form from "@/components/Forms/Form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import CustomInput from "@/components/Forms/CustomInput";
 import { loginSchema } from "@/schemas/login";
 import { useLoginUserMutation } from "@/redux/api/authApi";
 import { storeUserInfo } from "@/services/auth.service";
+import Link from "next/link";
 
 type FormValues = {
   email: string;
@@ -18,18 +19,18 @@ type FormValues = {
 };
 const LoginPage = () => {
   const [loginUser] = useLoginUserMutation();
+
   const router = useRouter();
+
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
       const res = await loginUser({ ...data }).unwrap();
-      // console.log(res);
+
       if (res?.accessToken) {
-        console.log(data, "checking data");
-        //   router.push("/profile");
         message.success("User logged in successfully!");
+        router.back();
       }
       storeUserInfo({ accessToken: res?.accessToken });
-      // console.log(res);
     } catch (err: any) {
       console.error(err.message);
     }
@@ -74,6 +75,11 @@ const LoginPage = () => {
                 Login
               </Button>
             </Form>
+            <Link href="/register">
+              <p style={{ marginTop: "10px" }}>
+                Not registered? Click to register
+              </p>
+            </Link>
           </div>
         </Col>
       </Row>

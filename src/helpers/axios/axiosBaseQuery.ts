@@ -19,7 +19,6 @@ export const axiosBaseQuery =
     unknown
   > =>
   async ({ url, method, data, params, contentType }) => {
-    console.log(baseUrl, url);
     try {
       const result = await axiosInstance({
         url: baseUrl + url,
@@ -31,6 +30,7 @@ export const axiosBaseQuery =
         },
         withCredentials: true,
       });
+
       return result;
     } catch (axiosError) {
       let err = axiosError as AxiosError;

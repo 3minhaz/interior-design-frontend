@@ -1,3 +1,5 @@
+import { message } from "antd";
+import { IGenericErrorMessage } from "./../../types/common";
 import { authKey } from "@/constants/storageKey";
 
 import { IGenericErrorResponse, ResponseSuccessType } from "@/types";
@@ -28,25 +30,24 @@ instance.interceptors.request.use(
 // Add a response interceptor
 instance.interceptors.response.use(
   //@ts-ignore
-  function (response) {
+  (response) => {
     const responseObject: ResponseSuccessType = {
       data: response?.data?.data,
       meta: response?.data?.meta,
     };
     return responseObject;
   },
-  async function (error) {
-    if (error?.response?.status === 403) {
-    } else {
-      const responseObject: IGenericErrorResponse = {
-        statusCode: error?.response?.data?.statusCode || 500,
-        message: error?.response?.data?.message || "Something went wrong",
-        errorMessages: error?.response?.data?.message,
-      };
-      return responseObject;
-    }
-
-    // return Promise.reject(error);
+  (error) => {
+    const errorResponse = {
+      statusCode: error?.response?.statusCode || 500,
+      success: error?.response?.data?.success || false,
+      message:
+        error?.response?.data?.message ||
+        error?.message ||
+        "Something went wrong",
+      errorMessages: error?.response?.data?.errorMessages || [],
+    };
+    return { error: errorResponse };
   }
 );
 

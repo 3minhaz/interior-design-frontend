@@ -15,13 +15,7 @@ import Link from "next/link";
 const RegisterPage = () => {
   const [createUser] = useCreateUserMutation();
   const router = useRouter();
-  // console.log(
-  //   "isSuccess",
-  //   isSuccess,
-  //   "error",
-  //   error,
-  //   "checking the error message from register@@@"
-  // );
+
   const onSubmit = async (data: any) => {
     try {
       if (data.password !== data.confirmPassword) {
@@ -36,7 +30,7 @@ const RegisterPage = () => {
         router.push("/login");
       }
     } catch (err: any) {
-      console.log(err.message, "checking error from register");
+      message.error(err.message);
     }
   };
   return (

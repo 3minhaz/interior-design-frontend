@@ -3,7 +3,10 @@
 import FormDatePicker from "@/components/Forms/CustomDatePicker";
 import CustomInput from "@/components/Forms/CustomInput";
 import Form from "@/components/Forms/Form";
-import { useGetSingleBookingQuery } from "@/redux/api/bookingApi";
+import {
+  useGetSingleBookingQuery,
+  useUpdateBookingMutation,
+} from "@/redux/api/bookingApi";
 import { Col, Row, message, Button } from "antd";
 import React from "react";
 import dayjs from "dayjs";
@@ -16,21 +19,21 @@ type IDProps = {
 
 const BookingEdit = ({ params }: IDProps) => {
   const { id } = params;
-  // console.log(id);
+
   const { data, isLoading } = useGetSingleBookingQuery(id);
-  // console.log(data, "checing data");
+  const [updateBooking] = useUpdateBookingMutation();
 
   const onSubmit = async (values: any) => {
     const tempObject = { ...values };
     tempObject["date"] = dayjs(tempObject["date"]).toISOString();
-    console.log(tempObject, "checking tempObject");
-    message.loading("Updating.....");
+
     try {
-      // console.log(data);
-      // await updateDepartment({ id, body: values });
-      message.success("Department updated successfully");
+      const res = await updateBooking({ id, body: tempObject });
+      console.log(res);
+      if (res?.data?.id) {
+        message.success("Booking updated successfully");
+      }
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };

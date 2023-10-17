@@ -29,7 +29,7 @@ const BookingEdit = ({ params }: IDProps) => {
 
     try {
       const res = await updateBooking({ id, body: tempObject });
-      console.log(res);
+      // @ts-ignore
       if (res?.data?.id) {
         message.success("Booking updated successfully");
       }

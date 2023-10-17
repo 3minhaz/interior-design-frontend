@@ -12,8 +12,10 @@ import dayjs from "dayjs";
 import { message } from "antd";
 import CustomTable from "@/components/ui/CustomTable";
 import { useGetBookingQuery } from "@/redux/api/bookingApi";
+import { useVerifyUser } from "@/utils/verifyUser";
 
 const BookingPage = () => {
+  useVerifyUser("customer");
   const query: Record<string, any> = {};
 
   const [page, setPage] = useState<number>(1);

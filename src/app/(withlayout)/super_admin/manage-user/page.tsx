@@ -19,7 +19,10 @@ import {
 } from "@/redux/api/serviceApi";
 import UMBreadCrumb from "@/components/ui/BreadCrumb";
 import CustomModal from "@/components/ui/CustomModal";
-import { useGetAllUserQuery } from "@/redux/api/userApi";
+import {
+  useDeleteSingleUserMutation,
+  useGetAllUserQuery,
+} from "@/redux/api/userApi";
 
 const ManageUserPage = () => {
   useVerifyUser("super_admin");
@@ -31,7 +34,7 @@ const ManageUserPage = () => {
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
-  const [serviceId, setServiceId] = useState<string>("");
+  const [userId, setUserId] = useState<string>("");
 
   query["limit"] = size;
   query["page"] = page;
@@ -47,7 +50,7 @@ const ManageUserPage = () => {
   }
 
   const { data, isLoading } = useGetAllUserQuery({ ...query });
-  const [deleteService] = useDeleteServiceMutation();
+  const [deleteService] = useDeleteSingleUserMutation();
   const users = data?.users;
   const meta = data?.meta;
 
@@ -57,7 +60,7 @@ const ManageUserPage = () => {
       const res = await deleteService(id);
       // @ts-ignore
       if (res?.data?.id) {
-        message.success("Department Deleted successfully");
+        message.success("User Deleted successfully");
         setOpen(false);
       }
     } catch (err: any) {
@@ -104,7 +107,7 @@ const ManageUserPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Link href={`/admin/manage-user/edit/${data?.id}`}>
+            <Link href={`/super_admin/manage-user/edit/${data?.id}`}>
               <Button
                 style={{
                   margin: "0px 5px",
@@ -118,7 +121,7 @@ const ManageUserPage = () => {
             <Button
               onClick={() => {
                 setOpen(true);
-                setServiceId(data?.id);
+                setUserId(data?.id);
               }}
               // onClick={() => deleteHandler(data?.id)}
               type="primary"
@@ -159,7 +162,7 @@ const ManageUserPage = () => {
         ]}
       />
 
-      <ActionBar title="Manage service page">
+      <ActionBar title="Manage Admin page">
         <Input
           size="large"
           placeholder="Search"
@@ -198,9 +201,9 @@ const ManageUserPage = () => {
         title="Remove admin"
         isOpen={open}
         closeModal={() => setOpen(false)}
-        handleOk={() => deleteHandler(serviceId)}
+        handleOk={() => deleteHandler(userId)}
       >
-        <p className="my-5">Do you want to remove this admin?</p>
+        <p className="my-5">Do you want to delete this user?</p>
       </CustomModal>
     </div>
   );

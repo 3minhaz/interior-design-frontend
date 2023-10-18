@@ -2,13 +2,13 @@
 import { useVerifyUser } from "@/utils/verifyUser";
 import React from "react";
 
-const ManageUserPage = () => {
+const ManageBookingPage = () => {
   useVerifyUser("admin");
   return (
     <div>
-      <h1>this is manage user page</h1>
+      <h1>this is manage booking page</h1>
     </div>
   );
 };
 
-export default ManageUserPage;
+export default ManageBookingPage;

@@ -12,3 +12,13 @@ export const BookingStatusOptions = [
     value: "cancel",
   },
 ];
+export const ServiceStatusOptions = [
+  {
+    label: "Available",
+    value: "Available",
+  },
+  {
+    label: "Upcoming",
+    value: "Upcoming",
+  },
+];

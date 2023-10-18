@@ -47,23 +47,19 @@ export const sidebarItems = (role: string) => {
     ...defaultSidebarItems,
     // ...commonAdminSidebarItems,
     {
-      label: "Manage user",
+      label: <Link href={`/${role}/manage-user`}>Manage User</Link>,
       key: "manage-user",
       icon: <TableOutlined />,
-      children: [
-        {
-          label: <Link href={`/${role}/user`}>User</Link>,
-          key: `/${role}/user`,
-        },
-        // {
-        //   label: <Link href={`/${role}/academic/department`}>Departments</Link>,
-        //   key: `/${role}/academic/department`,
-        // },
-        // {
-        //   label: <Link href={`/${role}/academic/semester`}>Semesters</Link>,
-        //   key: `/${role}/academic/semester`,
-        // },
-      ],
+    },
+    {
+      label: <Link href={`/${role}/manage-service`}>Manage service</Link>,
+      key: "manage-service",
+      icon: <TableOutlined />,
+    },
+    {
+      label: <Link href={`/${role}/manage-booking`}>Manage Booking</Link>,
+      key: "manage-booking",
+      icon: <TableOutlined />,
     },
     // {
     //   label: "Management",

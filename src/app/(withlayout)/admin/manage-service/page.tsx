@@ -13,8 +13,12 @@ import { message } from "antd";
 import CustomTable from "@/components/ui/CustomTable";
 import { useVerifyUser } from "@/utils/verifyUser";
 import ActionBar from "@/components/ui/ActionBar";
-import { useGetAllServiceQuery } from "@/redux/api/serviceApi";
+import {
+  useDeleteServiceMutation,
+  useGetAllServiceQuery,
+} from "@/redux/api/serviceApi";
 import UMBreadCrumb from "@/components/ui/BreadCrumb";
+import CustomModal from "@/components/ui/CustomModal";
 
 const ManageServicePage = () => {
   useVerifyUser("admin");
@@ -25,6 +29,8 @@ const ManageServicePage = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [open, setOpen] = useState<boolean>(false);
+  const [serviceId, setServiceId] = useState<string>("");
 
   query["limit"] = size;
   query["page"] = page;
@@ -40,28 +46,20 @@ const ManageServicePage = () => {
   }
 
   const { data, isLoading } = useGetAllServiceQuery({ ...query });
+  const [deleteService] = useDeleteServiceMutation();
   const services = data?.services;
   const meta = data?.meta;
-  // const updateBookings = bookings?.map((booking: any) => ({
-  //   id: booking?.id,
-  //   bookingStatus: booking?.bookingStatus,
-  //   createdAt: booking?.createdAt,
-  //   serviceStatus: booking?.service?.serviceStatus,
-  //   title: booking?.service?.title,
-  //   price: booking?.service?.price,
-  //   date: booking?.date,
-  //   location: booking?.service?.location,
-  // }));
+
   const deleteHandler = async (id: string) => {
     message.loading("Deleting.....");
     try {
-      //   console.log(data);
-      //   const res = await deleteAcademicDepartment(id);
-      //   if (res) {
-      message.success("Department Deleted successfully");
-      //   }
+      const res = await deleteService(id);
+      // @ts-ignore
+      if (res?.data?.id) {
+        message.success("Department Deleted successfully");
+        setOpen(false);
+      }
     } catch (err: any) {
-      //   console.error(err.message);
       message.error(err.message);
     }
   };
@@ -78,9 +76,6 @@ const ManageServicePage = () => {
     {
       title: "Service Status",
       dataIndex: "serviceStatus",
-      //   render: function (data: any) {
-      //     return <>{data?.title}</>;
-      //   },
     },
     {
       title: "Location",
@@ -116,7 +111,11 @@ const ManageServicePage = () => {
               </Button>
             </Link>
             <Button
-              onClick={() => deleteHandler(data?.id)}
+              onClick={() => {
+                setOpen(true);
+                setServiceId(data?.id);
+              }}
+              // onClick={() => deleteHandler(data?.id)}
               type="primary"
               danger
             >
@@ -154,6 +153,7 @@ const ManageServicePage = () => {
           },
         ]}
       />
+
       <ActionBar title="Manage service page">
         <Input
           size="large"
@@ -189,6 +189,14 @@ const ManageServicePage = () => {
         onTableChange={onTableChange}
         showPagination={true}
       />
+      <CustomModal
+        title="Remove admin"
+        isOpen={open}
+        closeModal={() => setOpen(false)}
+        handleOk={() => deleteHandler(serviceId)}
+      >
+        <p className="my-5">Do you want to remove this admin?</p>
+      </CustomModal>
     </div>
   );
 };

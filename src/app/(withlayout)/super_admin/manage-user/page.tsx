@@ -22,7 +22,7 @@ import CustomModal from "@/components/ui/CustomModal";
 import { useGetAllUserQuery } from "@/redux/api/userApi";
 
 const ManageUserPage = () => {
-  useVerifyUser("admin");
+  useVerifyUser("super_admin");
   const query: Record<string, any> = {};
 
   const [page, setPage] = useState<number>(1);

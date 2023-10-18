@@ -1,3 +1,4 @@
+import { IMeta } from "@/types";
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
@@ -20,7 +21,33 @@ export const userApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.user],
     }),
+    getAllAdmin: build.query({
+      query: () => ({
+        url: `${USER_URL}/all-admin`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.user],
+    }),
+    getAllUser: build.query({
+      query: (arg) => ({
+        url: `${USER_URL}`,
+        method: "GET",
+        params: arg,
+      }),
+      transformResponse: (response: any, meta: IMeta) => {
+        return {
+          users: response,
+          meta,
+        };
+      },
+      providesTags: [tagTypes.user],
+    }),
   }),
 });
 
-export const { useCreateUserMutation, useMyProfileQuery } = userApi;
+export const {
+  useCreateUserMutation,
+  useMyProfileQuery,
+  useGetAllUserQuery,
+  useGetAllAdminQuery,
+} = userApi;

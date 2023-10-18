@@ -19,10 +19,10 @@ import {
 } from "@/redux/api/serviceApi";
 import UMBreadCrumb from "@/components/ui/BreadCrumb";
 import CustomModal from "@/components/ui/CustomModal";
-import { useGetAllUserQuery } from "@/redux/api/userApi";
+import { useGetAllAdminQuery, useGetAllUserQuery } from "@/redux/api/userApi";
 
-const ManageUserPage = () => {
-  useVerifyUser("admin");
+const ManageAdminPage = () => {
+  useVerifyUser("super_admin");
   const query: Record<string, any> = {};
 
   const [page, setPage] = useState<number>(1);
@@ -46,11 +46,12 @@ const ManageUserPage = () => {
     query["searchTerm"] = debouncedTerm;
   }
 
-  const { data, isLoading } = useGetAllUserQuery({ ...query });
+  const { data: users, isLoading } = useGetAllAdminQuery("");
   const [deleteService] = useDeleteServiceMutation();
-  const users = data?.users;
-  const meta = data?.meta;
-
+  //   console.log(data);
+  //   const users = data?.users;
+  //   const meta = data?.meta;
+  //   console.log("data", data);
   const deleteHandler = async (id: string) => {
     message.loading("Deleting.....");
     try {
@@ -104,7 +105,7 @@ const ManageUserPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Link href={`/admin/manage-user/edit/${data?.id}`}>
+            <Link href={`/super_admin/manage-user/edit/${data?.id}`}>
               <Button
                 style={{
                   margin: "0px 5px",
@@ -188,7 +189,7 @@ const ManageUserPage = () => {
         columns={columns}
         dataSource={users}
         pageSize={size}
-        totalPages={meta?.total}
+        // totalPages={meta?.total}
         showSizeChanger={true}
         onPaginationChange={onPaginationChange}
         onTableChange={onTableChange}
@@ -206,4 +207,4 @@ const ManageUserPage = () => {
   );
 };
 
-export default ManageUserPage;
+export default ManageAdminPage;

@@ -27,13 +27,14 @@ const ServiceEdit = ({ params }: IDProps) => {
   const { id } = params;
 
   const { data, isLoading } = useGetSingleServiceQuery(id);
-  console.log(data, "checing data @@@@@@@@");
+
   const [updateService] = useUpdateServiceMutation();
 
   const onSubmit = async (data: any) => {
     // const tempObject = { ...values };
     // tempObject["date"] = dayjs(tempObject["date"]).toISOString();
-
+    data["price"] = parseFloat(data["price"]);
+    console.log(data);
     try {
       const res = await updateService({ id, body: data });
       // @ts-ignore

@@ -9,7 +9,7 @@ import UMBreadCrumb from "@/components/ui/BreadCrumb";
 import { ServiceStatusOptions } from "@/constants/global";
 import { useCreateServiceMutation } from "@/redux/api/serviceApi";
 import { serviceSchema } from "@/schemas/service";
-import { useVerifyUser } from "@/utils/verifyUser";
+import { useVerifyUser } from "@/utils/customHooks";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
 

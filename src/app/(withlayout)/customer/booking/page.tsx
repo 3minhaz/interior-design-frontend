@@ -12,7 +12,7 @@ import dayjs from "dayjs";
 import { message } from "antd";
 import CustomTable from "@/components/ui/CustomTable";
 import { useGetBookingQuery } from "@/redux/api/bookingApi";
-import { useVerifyUser } from "@/utils/verifyUser";
+import { useVerifyUser } from "@/utils/customHooks";
 
 const BookingPage = () => {
   useVerifyUser("customer");

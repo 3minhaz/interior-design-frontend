@@ -11,7 +11,7 @@ import { useState } from "react";
 import dayjs from "dayjs";
 import { message } from "antd";
 import CustomTable from "@/components/ui/CustomTable";
-import { useVerifyUser } from "@/utils/verifyUser";
+import { useVerifyUser } from "@/utils/customHooks";
 import ActionBar from "@/components/ui/ActionBar";
 import {
   useDeleteServiceMutation,

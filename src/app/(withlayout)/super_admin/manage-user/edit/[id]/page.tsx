@@ -1,15 +1,13 @@
 "use client";
-
 import { useVerifyUser } from "@/utils/customHooks";
-import React from "react";
 
-const SuperAdminPage = () => {
+const ManageUserPage = () => {
   useVerifyUser("super_admin");
   return (
     <div>
-      <h1>this is super admin page</h1>
+      <h1>super admin manage user page</h1>
     </div>
   );
 };
 
-export default SuperAdminPage;
+export default ManageUserPage;

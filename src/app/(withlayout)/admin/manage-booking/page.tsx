@@ -1,5 +1,5 @@
 "use client";
-import { useVerifyUser } from "@/utils/verifyUser";
+import { useVerifyUser } from "@/utils/customHooks";
 import React from "react";
 
 const ManageBookingPage = () => {

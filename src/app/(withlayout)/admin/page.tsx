@@ -1,6 +1,6 @@
 "use client";
 import { getUserInfo } from "@/services/auth.service";
-import { useVerifyUser } from "@/utils/verifyUser";
+import { useVerifyUser } from "@/utils/customHooks";
 import { useRouter } from "next/navigation";
 import React from "react";
 

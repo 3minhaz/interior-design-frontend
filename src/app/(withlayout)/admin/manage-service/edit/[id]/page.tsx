@@ -1,17 +1,12 @@
 "use client";
 
-import FormDatePicker from "@/components/Forms/CustomDatePicker";
 import CustomInput from "@/components/Forms/CustomInput";
 import Form from "@/components/Forms/Form";
-import {
-  useGetSingleBookingQuery,
-  useUpdateBookingMutation,
-} from "@/redux/api/bookingApi";
+
 import { Col, Row, message, Button } from "antd";
 import React from "react";
-import dayjs from "dayjs";
 import CustomSelectField from "@/components/Forms/CustomSelectField";
-import { BookingStatusOptions, ServiceStatusOptions } from "@/constants/global";
+import { ServiceStatusOptions } from "@/constants/global";
 import {
   useGetSingleServiceQuery,
   useUpdateServiceMutation,

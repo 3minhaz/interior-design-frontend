@@ -19,7 +19,11 @@ import {
 } from "@/redux/api/serviceApi";
 import UMBreadCrumb from "@/components/ui/BreadCrumb";
 import CustomModal from "@/components/ui/CustomModal";
-import { useGetAllAdminQuery, useGetAllUserQuery } from "@/redux/api/userApi";
+import {
+  useDeleteSingleUserMutation,
+  useGetAllAdminQuery,
+  useGetAllUserQuery,
+} from "@/redux/api/userApi";
 
 const ManageAdminPage = () => {
   useVerifyUser("super_admin");
@@ -47,7 +51,7 @@ const ManageAdminPage = () => {
   }
 
   const { data: users, isLoading } = useGetAllAdminQuery("");
-  const [deleteService] = useDeleteServiceMutation();
+  const [deleteSingleUser] = useDeleteSingleUserMutation();
   //   console.log(data);
   //   const users = data?.users;
   //   const meta = data?.meta;
@@ -55,10 +59,10 @@ const ManageAdminPage = () => {
   const deleteHandler = async (id: string) => {
     message.loading("Deleting.....");
     try {
-      const res = await deleteService(id);
+      const res = await deleteSingleUser(id);
       // @ts-ignore
       if (res?.data?.id) {
-        message.success("Department Deleted successfully");
+        message.success("User Deleted successfully");
         setOpen(false);
       }
     } catch (err: any) {
@@ -105,7 +109,7 @@ const ManageAdminPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Link href={`/super_admin/manage-user/edit/${data?.id}`}>
+            <Link href={`/super_admin/manage-admin/edit/${data?.id}`}>
               <Button
                 style={{
                   margin: "0px 5px",

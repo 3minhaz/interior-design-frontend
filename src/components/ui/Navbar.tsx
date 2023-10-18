@@ -59,6 +59,7 @@ const Navbar = () => {
           </svg>
         </button>
         <div
+          style={{ zIndex: "5" }}
           className={`${styles.navigationMenu} ${
             isNavExpanded ? styles.expanded : ""
           }`}

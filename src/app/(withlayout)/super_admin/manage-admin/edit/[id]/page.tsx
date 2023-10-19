@@ -11,6 +11,8 @@ import {
   useUpdateUserMutation,
 } from "@/redux/api/userApi";
 import { useVerifyUser } from "@/utils/customHooks";
+import CustomSelectField from "@/components/Forms/CustomSelectField";
+import { UserRole } from "@/constants/global";
 
 type IDProps = {
   params: any;
@@ -41,6 +43,7 @@ const ManageUserEditPage = ({ params }: IDProps) => {
     address: data?.address || "",
     contactNo: data?.contactNo || "",
     name: data?.name || "",
+    role: data?.role || "",
   };
   if (isLoading) {
     return <p>loading</p>;
@@ -100,6 +103,20 @@ const ManageUserEditPage = ({ params }: IDProps) => {
               }}
             >
               <CustomInput type="text" name="name" size="large" label="Name" />
+            </Col>
+            <Col
+              className="gutter-row"
+              span={8}
+              style={{
+                marginBottom: "10px",
+              }}
+            >
+              <CustomSelectField
+                options={UserRole}
+                name="role"
+                size="large"
+                label="Role"
+              />
             </Col>
           </Row>
         </Row>

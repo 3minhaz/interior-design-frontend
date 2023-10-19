@@ -2,6 +2,7 @@
 import CustomCard from "@/components/ui/CustomCard";
 import CustomCategoryService from "@/components/ui/CustomCategoryService";
 import CustomOverview from "@/components/ui/CustomOverview";
+import CustomReviews from "@/components/ui/CustomReviews";
 
 import CustomSlider from "@/components/ui/CustomSlider";
 import CustomUpcomingCard from "@/components/ui/CustomUpcomingCard";
@@ -17,6 +18,7 @@ function Home() {
       <CustomCard />
       <CustomUpcomingCard />
       <CustomCategoryService />
+      <CustomReviews />
       <CustomOverview />
       <FooterPage />
     </div>

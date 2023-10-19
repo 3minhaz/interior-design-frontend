@@ -13,12 +13,12 @@ const CustomCategoryService = () => {
   }
   const services = data?.servicesCategory;
   //   console.log(services, "checking service data");
-  console.log(data, "checking service data");
+  // console.log(data, "checking service data");
   return (
     <div style={{ padding: "25px" }}>
       <h1 style={{ margin: "15px 0" }}>Events By Category</h1>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-        {services?.map((service: any) => (
+        {data?.map((service: any) => (
           <>
             <Col
               style={{ marginBottom: "15px" }}
@@ -42,7 +42,10 @@ const CustomCategoryService = () => {
                     />
                   }
                 >
-                  <h2>Title: {service?.title}</h2>
+                  <h2 style={{ margin: "10px 0" }}>
+                    Category: {service?.category}
+                  </h2>
+                  <h4>Title: {service?.title}</h4>
                   <h4>Status: {service?.serviceStatus}</h4>
                   <p>
                     Description:{" "}
@@ -52,9 +55,9 @@ const CustomCategoryService = () => {
                   </p>
                   <p>Price: {service?.price}</p>
 
-                  <Button type="primary">
+                  {/* <Button type="primary">
                     <Link href={`details/${service?.id}`}>Details</Link>
-                  </Button>
+                  </Button> */}
                 </Card>
               </div>
             </Col>

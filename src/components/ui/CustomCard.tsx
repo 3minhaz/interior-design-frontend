@@ -10,7 +10,7 @@ const CustomCard = () => {
   if (isLoading) {
     return <p>loading</p>;
   }
-  const availableService = services.filter(
+  const availableService = services?.filter(
     (service: any) => service?.serviceStatus === "Available"
   );
 

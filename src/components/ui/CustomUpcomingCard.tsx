@@ -1,8 +1,7 @@
-import { Button, Card, Col, Row } from "antd";
+import { Card, Col, Row } from "antd";
 import Image from "next/image";
 import img4 from "../../assets/slider-4-min.jpg";
 import { useGetAllServiceQuery } from "@/redux/api/serviceApi";
-import Link from "next/link";
 
 const CustomUpcomingCard = () => {
   const { data, isLoading } = useGetAllServiceQuery({ limit: 15 });
@@ -10,7 +9,7 @@ const CustomUpcomingCard = () => {
   if (isLoading) {
     return <p>loading</p>;
   }
-  const availableService = services.filter(
+  const availableService = services?.filter(
     (service: any) => service?.serviceStatus === "Upcoming"
   );
 

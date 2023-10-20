@@ -11,9 +11,7 @@ const CustomCategoryService = () => {
   if (isLoading) {
     return <p>loading</p>;
   }
-  const services = data?.servicesCategory;
-  //   console.log(services, "checking service data");
-  // console.log(data, "checking service data");
+
   return (
     <div style={{ padding: "25px" }}>
       <h1 style={{ margin: "15px 0" }}>Events By Category</h1>
